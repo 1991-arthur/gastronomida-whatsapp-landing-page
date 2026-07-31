@@ -1,0 +1,13 @@
+# Freebuff / Codebuff metadata
+.freebuff/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
