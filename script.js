@@ -12,8 +12,7 @@ const CONFIG = {
   // Nota: mantendo parâmetros de rastreamento (s, p, ilr, amv) fora da URL
   // para não interferir no redirecionamento do WhatsApp
   webhookUrl: "",
-  metaPixelId: "",
-  redirectDelaySeconds: 3
+  metaPixelId: ""
 };
 
 const form = document.querySelector("#lead-form");
@@ -25,11 +24,8 @@ const submitButton = document.querySelector("#submit-button");
 const formMessage = document.querySelector("#form-message");
 const nameError = document.querySelector("#name-error");
 const phoneError = document.querySelector("#phone-error");
-const successModal = document.querySelector("#success-modal");
 const privacyModal = document.querySelector("#privacy-modal");
 const privacyButton = document.querySelector("#privacy-button");
-const manualAccess = document.querySelector("#manual-access");
-const countdownElement = document.querySelector("#countdown");
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
 
@@ -189,7 +185,7 @@ form.addEventListener("submit", async (event) => {
       status: "completed"
     });
 
-    openSuccessModal();
+    window.location.assign(CONFIG.whatsappGroupUrl);
   } catch (error) {
     console.error("Erro ao cadastrar lead:", error);
     formMessage.textContent =
@@ -262,26 +258,6 @@ function setLoading(isLoading) {
   submitButton.classList.toggle("is-loading", isLoading);
   submitButton.disabled = isLoading || !isFormValid();
   form.setAttribute("aria-busy", String(isLoading));
-}
-
-function openSuccessModal() {
-  manualAccess.href = CONFIG.whatsappGroupUrl;
-  successModal.classList.add("is-open");
-  successModal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-
-  let remaining = Number(CONFIG.redirectDelaySeconds) || 3;
-  countdownElement.textContent = remaining;
-
-  const interval = window.setInterval(() => {
-    remaining -= 1;
-    countdownElement.textContent = Math.max(remaining, 0);
-
-    if (remaining <= 0) {
-      window.clearInterval(interval);
-      window.location.assign(CONFIG.whatsappGroupUrl);
-    }
-  }, 1000);
 }
 
 function openPrivacyModal() {

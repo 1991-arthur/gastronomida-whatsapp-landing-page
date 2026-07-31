@@ -1003,32 +1003,6 @@ footer small {
   font-weight: 800;
 }
 
-.success-content {
-  text-align: center;
-}
-
-.success-icon {
-  width: 65px;
-  height: 65px;
-  margin: 0 auto 20px;
-  display: grid;
-  place-items: center;
-  color: white;
-  background: var(--green);
-  border-radius: 50%;
-  font-size: 29px;
-  font-weight: 900;
-  box-shadow: 0 12px 28px rgba(31,157,85,.25);
-}
-
-.countdown-text {
-  font-size: 12px !important;
-}
-
-.manual-access {
-  margin-top: 20px;
-}
-
 @media (max-width: 1020px) {
   .hero {
     min-height: auto;
