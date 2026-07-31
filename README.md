@@ -7,6 +7,7 @@ Landing page responsiva em HTML, CSS e JavaScript puro para captar nome e telefo
 - `index.html`: estrutura e conteúdo.
 - `styles.css`: identidade visual e responsividade.
 - `script.js`: validação, máscara de telefone, captura de UTMs, webhook e redirecionamento.
+- `gas-webhook.gs`: script do Google Apps Script que salva leads no Google Sheets.
 - `README.md`: configuração e publicação.
 
 ## 1. Configure o link do grupo
@@ -19,18 +20,45 @@ whatsappGroupUrl: "https://chat.whatsapp.com/COLE_AQUI_O_LINK_DO_GRUPO"
 
 Use o link de convite completo gerado no WhatsApp.
 
-## 2. Configure onde os leads serão salvos
+## 2. Configure o Google Sheets para salvar os leads
 
-HTML e JavaScript no navegador não criam, sozinhos, um banco de dados seguro.  
-Para armazenar nome, telefone e parâmetros de campanha, conecte a página a um endpoint.
+O jeito mais simples e gratuito de armazenar os leads é usando o Google Sheets com Apps Script.
 
-No `script.js`, altere:
+### Passo a passo
+
+**1. Crie uma planilha no Google Sheets**
+
+Acesse [sheets.google.com](https://sheets.google.com) e crie uma planilha em branco.
+
+**2. Abra o Apps Script**
+
+No menu da planilha, vá em **Extensões > Apps Script**. Apague o código que aparecer.
+
+**3. Cole o código do webhook**
+
+Abra o arquivo `gas-webhook.gs` deste projeto, copie todo o conteúdo e cole no editor do Apps Script.
+
+**4. Implante como App da Web**
+
+- Clique em **Implantar > Nova implantação**.
+- Em **Tipo**, selecione **App da Web**.
+- Em **Executar como**, escolha **Eu**.
+- Em **Quem tem acesso**, escolha **Qualquer pessoa**.
+- Clique em **Implantar**.
+- **Autorize** o acesso quando solicitado.
+- **Copie a URL** gerada (termina em `/exec`).
+
+**5. Cole a URL no script.js**
 
 ```js
-webhookUrl: "https://seu-endpoint.com/webhook"
+webhookUrl: "https://script.google.com/macros/s/COLE_A_URL_AQUI/exec"
 ```
 
-Pode ser um webhook do Make, n8n, Zapier, Google Apps Script, Kommo ou de um backend próprio.
+Pronto! Ao enviar o formulário, o lead aparecerá automaticamente na aba **Leads** da planilha, com os cabeçalhos criados na primeira execução.
+
+### Alternativa: usar outro webhook
+
+Se preferir usar Make, n8n, Zapier, Kommo ou um backend próprio, basta colocar a URL do endpoint no mesmo campo `webhookUrl`.
 
 ### JSON enviado ao webhook
 
