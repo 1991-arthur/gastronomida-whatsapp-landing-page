@@ -2,7 +2,6 @@
   CONFIGURAÇÃO OBRIGATÓRIA
   1. Cole o link real do grupo em whatsappGroupUrl.
   2. Para salvar leads, informe um endpoint HTTPS em webhookUrl.
-  3. Para usar o Pixel, informe o ID em metaPixelId.
 
   O webhook receberá JSON via POST. Veja o formato no README.
 */
@@ -12,7 +11,6 @@ const CONFIG = {
   // Nota: mantendo parâmetros de rastreamento (s, p, ilr, amv) fora da URL
   // para não interferir no redirecionamento do WhatsApp
   webhookUrl: "",
-  metaPixelId: ""
 };
 
 const form = document.querySelector("#lead-form");
@@ -42,42 +40,6 @@ const trackingKeys = [
 const trackingData = Object.fromEntries(
   trackingKeys.map((key) => [key, queryParams.get(key) || ""])
 );
-
-initMetaPixel(CONFIG.metaPixelId);
-trackEvent("ViewContent", {
-  content_name: "Landing Page Grupo WhatsApp Gastronomida"
-});
-
-function initMetaPixel(pixelId) {
-  if (!pixelId || pixelId.includes("COLE")) return;
-
-  /* Meta Pixel base code carregado dinamicamente */
-  !(function (f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    };
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = true;
-    n.version = "2.0";
-    n.queue = [];
-    t = b.createElement(e);
-    t.async = true;
-    t.src = v;
-    s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t, s);
-  })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-
-  window.fbq("init", pixelId);
-  window.fbq("track", "PageView");
-}
-
-function trackEvent(eventName, parameters = {}) {
-  if (typeof window.fbq === "function") {
-    window.fbq("track", eventName, parameters);
-  }
-}
 
 function normalizePhone(value) {
   return value.replace(/\D/g, "").slice(0, 11);
@@ -175,15 +137,6 @@ form.addEventListener("submit", async (event) => {
 
   try {
     await saveLead(lead);
-
-    trackEvent("Lead", {
-      content_name: "Grupo WhatsApp Gastronomida"
-    });
-
-    trackEvent("CompleteRegistration", {
-      content_name: "Grupo WhatsApp Gastronomida",
-      status: "completed"
-    });
 
     window.location.assign(CONFIG.whatsappGroupUrl);
   } catch (error) {

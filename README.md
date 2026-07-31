@@ -6,7 +6,7 @@ Landing page responsiva em HTML, CSS e JavaScript puro para captar nome e telefo
 
 - `index.html`: estrutura e conteúdo.
 - `styles.css`: identidade visual e responsividade.
-- `script.js`: validação, máscara de telefone, captura de UTMs, webhook, Pixel e redirecionamento.
+- `script.js`: validação, máscara de telefone, captura de UTMs, webhook e redirecionamento.
 - `README.md`: configuração e publicação.
 
 ## 1. Configure o link do grupo
@@ -58,24 +58,7 @@ Pode ser um webhook do Make, n8n, Zapier, Google Apps Script, Kommo ou de um bac
 
 O endpoint deve responder com status HTTP `200`, `201` ou outro status `2xx`.
 
-## 3. Configure o Pixel da Meta
-
-No `script.js`, altere:
-
-```js
-metaPixelId: "SEU_ID_DO_PIXEL"
-```
-
-Eventos implementados:
-
-- `PageView`
-- `ViewContent`
-- `Lead`
-- `CompleteRegistration`
-
-Para campanhas com maior exigência de mensuração, use também a Conversions API no servidor ou na automação conectada ao webhook. Não coloque token de acesso da Meta no JavaScript público.
-
-## 4. UTMs sugeridas para o anúncio
+## 3. UTMs sugeridas para o anúncio
 
 ```text
 utm_source=instagram
@@ -86,7 +69,7 @@ utm_content={{ad.name}}
 
 O `fbclid` e as UTMs são capturados automaticamente e enviados junto com o lead.
 
-## 5. Teste antes de publicar
+## 4. Teste antes de publicar
 
 1. Preencha nome, telefone e aceite o consentimento.
 2. Confirme que o botão permanece bloqueado enquanto algum campo estiver inválido.
@@ -94,9 +77,8 @@ O `fbclid` e as UTMs são capturados automaticamente e enviados junto com o lead
 4. Confirme que o lead chegou ao destino.
 5. Confirme o redirecionamento para o grupo.
 6. Teste em iPhone, Android e desktop.
-7. Verifique os eventos com a extensão Meta Pixel Helper ou a ferramenta Testar eventos do Gerenciador de Eventos.
 
-## 6. Publicação
+## 5. Publicação
 
 A página pode ser publicada em:
 
