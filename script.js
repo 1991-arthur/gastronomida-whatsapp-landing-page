@@ -10,7 +10,7 @@ const CONFIG = {
   whatsappGroupUrl: "https://chat.whatsapp.com/KfviHUK12gcKIKB6G3v9Hg",
   // Nota: mantendo parâmetros de rastreamento (s, p, ilr, amv) fora da URL
   // para não interferir no redirecionamento do WhatsApp
-  webhookUrl: "",
+  webhookUrl: "https://script.google.com/macros/s/AKfycbwyX7aiEBaJpDeqvEiusxRuGkItQTO60cQoH5Z0b0l-P1dwuV3WV6ty6f-m0jK3LS5JBA/exec",
 };
 
 const form = document.querySelector("#lead-form");
@@ -137,15 +137,13 @@ form.addEventListener("submit", async (event) => {
 
   try {
     await saveLead(lead);
-
-    window.location.assign(CONFIG.whatsappGroupUrl);
   } catch (error) {
-    console.error("Erro ao cadastrar lead:", error);
-    formMessage.textContent =
-      "Não foi possível concluir o cadastro agora. Tente novamente em instantes.";
-  } finally {
-    setLoading(false);
+    /* Falha no webhook não pode bloquear o acesso ao grupo */
+    console.error("Erro ao salvar lead (redirecionamento mantido):", error);
   }
+
+  setLoading(false);
+  window.location.assign(CONFIG.whatsappGroupUrl);
 });
 
 function buildLeadPayload() {
