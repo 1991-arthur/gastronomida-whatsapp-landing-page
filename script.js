@@ -187,7 +187,9 @@ async function saveLead(payload) {
   const response = await fetch(CONFIG.webhookUrl, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      // text/plain evita o preflight (OPTIONS) que o Apps Script responde 405;
+      // o JSON segue no corpo e o doPost lê e.postData.contents normalmente.
+      "Content-Type": "text/plain;charset=UTF-8"
     },
     body: JSON.stringify(payload),
     keepalive: true
@@ -195,6 +197,15 @@ async function saveLead(payload) {
 
   if (!response.ok) {
     throw new Error(`Webhook retornou HTTP ${response.status}`);
+  }
+
+  /* O doPost devolve 200 com {success:false} quando algo falha no Apps
+     Script (ex.: planilha indisponível) — detectar para não falhar em silêncio */
+  const result = await response.json().catch(() => null);
+
+  if (!result || result.success !== true) {
+    const detail = result && result.error ? `: ${result.error}` : "";
+    throw new Error(`Webhook não confirmou o salvamento do lead${detail}`);
   }
 }
 
