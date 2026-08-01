@@ -8,6 +8,7 @@ Landing page responsiva em HTML, CSS e JavaScript puro para captar nome e telefo
 - `styles.css`: identidade visual e responsividade.
 - `script.js`: validação, máscara de telefone, captura de UTMs, webhook e redirecionamento.
 - `gas-webhook.gs`: script do Google Apps Script que salva leads no Google Sheets.
+- `ARQUITETURA.md`: diagrama e descrição da arquitetura de tracking (GTM + Stape + Meta + GA4 + Google Sheets).
 - `README.md`: configuração e publicação.
 
 ## 1. Configure o link do grupo
