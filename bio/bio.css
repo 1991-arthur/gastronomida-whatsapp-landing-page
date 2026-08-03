@@ -488,7 +488,26 @@ a {
 }
 
 .map-section .section-title {
-  margin-bottom: 34px;
+  margin-bottom: 14px;
+}
+
+.map-address {
+  max-width: 720px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.map-address > span:first-child {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  font-size: 12px;
 }
 
 .map-frame {
