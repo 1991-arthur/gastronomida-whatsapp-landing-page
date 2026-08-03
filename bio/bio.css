@@ -48,6 +48,10 @@ p {
   margin-top: 0;
 }
 
+h1 {
+  margin-top: 0;
+}
+
 a {
   color: inherit;
 }
@@ -149,6 +153,19 @@ a {
 .hero-copy {
   position: relative;
   z-index: 3;
+}
+
+.hero h1 {
+  margin-bottom: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.hero h1 em {
+  color: var(--gold-light);
+  font-style: normal;
 }
 
 /* ---------- Link cards ---------- */
