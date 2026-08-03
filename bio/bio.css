@@ -449,14 +449,14 @@ a {
 }
 
 .section-title {
-  margin: 12px 0 30px;
+  margin: 14px 0 32px;
   font-family: var(--font-display);
-  font-size: clamp(35px, 4.8vw, 56px);
-  line-height: 1.03;
+  font-size: clamp(46px, 6.2vw, 76px);
+  line-height: 1.02;
   letter-spacing: -0.045em;
 }
 
-.manifesto p {
+.manifesto p:not(.section-title) {
   max-width: 720px;
   margin: 0 auto 22px;
   color: rgba(255, 248, 236, 0.76);
@@ -728,7 +728,7 @@ body.modal-open {
     border-radius: 25px;
   }
 
-  .manifesto p {
+  .manifesto p:not(.section-title) {
     font-size: 15px;
     line-height: 1.75;
   }
