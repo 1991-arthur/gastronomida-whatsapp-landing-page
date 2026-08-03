@@ -4,12 +4,39 @@ Landing page responsiva em HTML, CSS e JavaScript puro para captar nome e telefo
 
 ## Arquivos
 
-- `index.html`: estrutura e conteúdo.
-- `styles.css`: identidade visual e responsividade.
+- `index.html`: estrutura e conteúdo da landing page.
+- `styles.css`: identidade visual e responsividade da landing page.
 - `script.js`: validação, máscara de telefone, captura de UTMs, webhook e redirecionamento.
+- `bio/`: página de links na bio (`/bio`) com a mesma identidade visual.
 - `gas-webhook.gs`: script do Google Apps Script que salva leads no Google Sheets.
 - `ARQUITETURA.md`: diagrama e descrição da arquitetura de tracking (GTM + Stape + Meta + GA4 + Google Sheets).
 - `README.md`: configuração e publicação.
+
+## Página de links na bio (`/bio`)
+
+A pasta `bio/` é servida automaticamente em `https://gastronomida.netlify.app/bio` (o
+Netlify publica `index.html` de subpastas em rotas próprias, sem precisar de configuração).
+Ela reúne os links da Gastronomida no mesmo padrão visual da landing page, com a foto
+`gastronomida-camile-cesta.webp` na composição do destaque.
+
+### Editar os links
+
+Abra `bio/index.html` e altere o `href` dos cartões em `.link-list`:
+
+- **Grupo de ofertas no WhatsApp** — aponta para a landing page (`../?utm_source=instagram&utm_medium=profile&utm_campaign=link_na_bio`),
+  que captura o lead antes de liberar o grupo. As UTMs ficam gravadas junto ao lead no Google Sheets.
+- **WhatsApp** — pedidos e dúvidas (`https://wa.me/5547991900516`).
+- **Peça pelo iFood** — delivery da padaria no iFood.
+- **Avalie no Google** — link direto para a avaliação no Google.
+- **Endereço** — link de localização no Google Maps.
+
+Para adicionar outro link, duplique um bloco `<a class="link-card">` e preencha título, texto e `href`.
+
+A página também tem a seção **Nosso manifesto** (o texto pode ser editado em `bio/index.html`)
+e um **mapa do Google Maps** embutido (o `iframe` fica na seção `Onde estamos`).
+
+A página `bio/` carrega o mesmo container GTM da landing (via Stape), então o `page_view`
+do `/bio` também é medido em GA4 e na Meta.
 
 ## 1. Configure o link do grupo
 
